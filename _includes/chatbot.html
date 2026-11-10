@@ -1,0 +1,71 @@
+<!-- Cultivating Community Floating Chat Widget -->
+<div id="cc-chatbot-wrapper" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  
+  <!-- Floating Toggle Button -->
+  <button id="cc-chat-btn" onclick="toggleCCWidget()" style="background-color: #8AAF5F; color: white; border: none; border-radius: 50px; width: 56px; height: 56px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="path d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'></path></svg>
+  </button>
+
+  <!-- Pop-up Chat Window (Hidden by default) -->
+  <div id="cc-chat-popup" style="display: none; width: 340px; height: 460px; background: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column; overflow: hidden; border: 1px solid #eaeaea; margin-bottom: 12px;">
+    
+    <!-- Chat Header -->
+    <div style="background-color: #1a1a1a; color: white; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span style="font-weight: 600; font-size: 14px; display: block;">Cultivating Community Assistant</span>
+        <span style="font-size: 11px; color: #a0a0a0;">Ask us anything about our programs!</span>
+      </div>
+      <button onclick="toggleCCWidget()" style="background: none; border: none; color: #a0a0a0; font-size: 18px; cursor: pointer; padding: 0;">&times;</button>
+    </div>
+
+    <!-- Message Feed -->
+    <div id="cc-chat-feed" style="flex: 1; padding: 16px; overflow-y: auto; font-size: 13px; background: #fcfcfc; display: flex; flex-direction: column; gap: 10px;">
+      <div style="background: #eef2eb; color: #2c3e2d; padding: 10px 14px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">
+        Hello! 👋 Have questions about our Sunday grocery distributions or how to get involved? Let me know!
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div style="padding: 12px; border-top: 1px solid #eaeaea; background: white; display: flex; gap: 8px;">
+      <input type="text" id="cc-user-input" placeholder="Type your question..." style="flex: 1; padding: 9px 12px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; outline: none;" onkeypress="checkCCEnter(event)">
+      <button onclick="sendCCMessage()" style="background-color: #8AAF5F; color: white; border: none; padding: 9px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px;">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleCCWidget() {
+    const popup = document.getElementById('cc-chat-popup');
+    const btn = document.getElementById('cc-chat-btn');
+    if (popup.style.display === 'flex') {
+      popup.style.display = 'none';
+      btn.style.transform = 'scale(1)';
+    } else {
+      popup.style.display = 'flex';
+      btn.style.transform = 'scale(0.95)';
+      document.getElementById('cc-user-input').focus();
+    }
+  }
+
+  function checkCCEnter(e) {
+    if (e.key === 'Enter') sendCCMessage();
+  }
+
+  async function sendCCMessage() {
+    const input = document.getElementById('cc-user-input');
+    const feed = document.getElementById('cc-chat-feed');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Append user message
+    feed.innerHTML += `<div style="background: #8AAF5F; color: white; padding: 10px 14px; border-radius: 8px; max-width: 85%; align-self: flex-end; line-height: 1.4;">${text}</div>`;
+    input.value = '';
+    feed.scrollTop = feed.scrollHeight;
+
+    // Mock/Backend integration placeholder (will hook into your Groq endpoint)
+    setTimeout(() => {
+      feed.innerHTML += `<div style="background: #eef2eb; color: #2c3e2d; padding: 10px 14px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">Thanks for reaching out! We host free grocery distributions every Sunday from 12 PM to 2 PM at 3417 14th St. NW. You can also check our volunteer page to sign up via Timecounts!</div>`;
+      feed.scrollTop = feed.scrollHeight;
+    }, 500);
+  }
+</script>
