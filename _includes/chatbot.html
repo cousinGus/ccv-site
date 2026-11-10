@@ -25,7 +25,7 @@
     <!-- Message Feed -->
     <div id="cc-chat-feed" style="flex: 1; padding: 14px; overflow-y: auto; font-size: 13px; background: #fafafa; display: flex; flex-direction: column; gap: 10px;">
       <div style="background: #eef2eb; color: #2c3e2d; padding: 10px 12px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">
-        Hey there! 👋 I'm your assistant here. Ask me anything about our Sunday grocery distributions, volunteering, or how we run things across D.C. What's on your mind?
+        Hi, I'm Monique. How can I help you? 😉
       </div>
     </div>
 
@@ -71,9 +71,24 @@
     input.value = '';
     feed.scrollTop = feed.scrollHeight;
 
-    // Response with personality
+    // Intelligent conversational matching for Monique's persona
     setTimeout(() => {
-      feed.innerHTML += `<div style="background: #eef2eb; color: #2c3e2d; padding: 10px 12px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">Look, we keep it simple around here: free grocery distributions every Sunday from 12 PM to 2 PM at 3417 14th St. NW. No fluff. Need to jump in and help out? Hit our volunteer page and sign up via Timecounts! Got any other questions, or are we good? 😉</div>`;
+      const lower = text.toLowerCase();
+      let reply = "";
+
+      if (lower.includes('who are you') || lower.includes('your name') || lower.includes('who am i')) {
+        reply = "I'm Monique—just keeping things running smoothly around here. What can I help you find?";
+      } else if (lower.includes('volunteer') || lower.includes('help out') || lower.includes('timecounts')) {
+        reply = "Want to get your hands dirty? Head over to our volunteer page and sign up via Timecounts. We've got spots open across logistics, distribution, IT, and events!";
+      } else if (lower.includes('grocery') || lower.includes('food') || lower.includes('sunday') || lower.includes('distribution')) {
+        reply = "We host our free grocery distributions every Sunday from 12 PM to 2 PM at 3417 14th St. NW. Come through, all are welcome!";
+      } else if (lower.includes('donate') || lower.includes('money') || lower.includes('fund')) {
+        reply = "Looking to support the mission? Check out our donate page—recurring gifts keep us fiercely independent and running strong without relying on bureaucratic grants.";
+      } else {
+        reply = "Look, I like your style, but keep it to the mission! Ask me about our Sunday groceries, volunteering, or programs and I've got you covered. 😉";
+      }
+
+      feed.innerHTML += `<div style="background: #eef2eb; color: #2c3e2d; padding: 10px 12px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">${reply}</div>`;
       feed.scrollTop = feed.scrollHeight;
     }, 500);
   }
