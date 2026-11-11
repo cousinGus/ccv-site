@@ -10,7 +10,7 @@
     </span>
   </button>
 
-  <!-- Hidden Pop-up Chat Window -->
+  <!-- Hidden Pop-up Chat Window (Only opens on click) -->
   <div id="cc-chat-popup" style="display: none; width: 320px; height: 420px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; border: 1px solid #e0e0e0; margin-bottom: 12px; position: absolute; bottom: 65px; right: 0;">
     
     <!-- Chat Header -->
@@ -71,21 +71,23 @@
     input.value = '';
     feed.scrollTop = feed.scrollHeight;
 
-    // Intelligent conversational matching for Monique's persona
+    // Response with precise matching and personality
     setTimeout(() => {
       const lower = text.toLowerCase();
       let reply = "";
 
-      if (lower.includes('who are you') || lower.includes('your name') || lower.includes('who am i')) {
-        reply = "I'm Monique—just keeping things running smoothly around here. What can I help you find?";
-      } else if (lower.includes('volunteer') || lower.includes('help out') || lower.includes('timecounts')) {
+      if (lower.includes('who') && (lower.includes('run') || lower.includes('founder') || lower.includes('lead') || lower.includes('andrew'))) {
+        reply = "Cultivating Community is spearheaded by Andrew, focusing on sustainable local food systems, rescue networks, and community support across Washington, D.C.";
+      } else if (lower.includes('donate') || lower.includes('give') || lower.includes('money') || lower.includes('fund')) {
+        reply = "Looking to support the mission? Head over to our donate page! Recurring gifts keep us fiercely independent and running strong without relying on bureaucratic grants.";
+      } else if (lower.includes('volunteer') || lower.includes('help') || lower.includes('timecounts')) {
         reply = "Want to get your hands dirty? Head over to our volunteer page and sign up via Timecounts. We've got spots open across logistics, distribution, IT, and events!";
-      } else if (lower.includes('grocery') || lower.includes('food') || lower.includes('sunday') || lower.includes('distribution')) {
+      } else if (lower.includes('grocery') || lower.includes('food') || lower.includes('sunday') || lower.includes('distribution') || lower.includes('where')) {
         reply = "We host our free grocery distributions every Sunday from 12 PM to 2 PM at 3417 14th St. NW. Come through, all are welcome!";
-      } else if (lower.includes('donate') || lower.includes('money') || lower.includes('fund')) {
-        reply = "Looking to support the mission? Check out our donate page—recurring gifts keep us fiercely independent and running strong without relying on bureaucratic grants.";
+      } else if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
+        reply = "Hi, I'm Monique. How can I help you? 😉";
       } else {
-        reply = "Look, I like your style, but keep it to the mission! Ask me about our Sunday groceries, volunteering, or programs and I've got you covered. 😉";
+        reply = "Look, I like your style, but keep it to the mission! Ask me about our Sunday groceries, volunteering, Andrew, or our programs and I've got you covered. 😉";
       }
 
       feed.innerHTML += `<div style="background: #eef2eb; color: #2c3e2d; padding: 10px 12px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">${reply}</div>`;
