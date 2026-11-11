@@ -1,4 +1,4 @@
-<!-- Cultivating Community Floating Chat Widget (Monique Persona Edition) -->
+<!-- Cultivating Community Floating Chat Widget (Secure Groq-Connected Monique Edition) -->
 <div id="cc-chatbot-wrapper" style="position: fixed; bottom: 24px; right: 24px; z-index: 9999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   
   <!-- Bouncing Floating Trigger Button -->
@@ -71,15 +71,25 @@
     input.value = '';
     feed.scrollTop = feed.scrollHeight;
 
-    // Response with precise matching and personality
-    setTimeout(() => {
-      const lower = text.toLowerCase();
-      let reply = "";
+    let reply = "";
 
+    try {
+      // Calls your secure backend endpoint holding the Groq API key safely
+      const response = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      
+      const data = await response.json();
+      reply = data.reply;
+    } catch (err) {
+      // Fallback local matching if backend isn't active yet during local UI checks
+      const lower = text.toLowerCase();
       if (lower.includes('who') && (lower.includes('run') || lower.includes('founder') || lower.includes('lead') || lower.includes('andrew'))) {
         reply = "Cultivating Community is spearheaded by Andrew, focusing on sustainable local food systems, rescue networks, and community support across Washington, D.C.";
       } else if (lower.includes('donate') || lower.includes('give') || lower.includes('money') || lower.includes('fund')) {
-        reply = "Looking to support the mission? Head over to our donate page! Recurring gifts keep us fiercely independent and running strong without relying on bureaucratic grants.";
+        reply = "Looking to support the mission? Head over to our donate page! Recurring gifts keep us fiercely independent and running strong.";
       } else if (lower.includes('volunteer') || lower.includes('help') || lower.includes('timecounts')) {
         reply = "Want to get your hands dirty? Head over to our volunteer page and sign up via Timecounts. We've got spots open across logistics, distribution, IT, and events!";
       } else if (lower.includes('grocery') || lower.includes('food') || lower.includes('sunday') || lower.includes('distribution') || lower.includes('where')) {
@@ -89,9 +99,9 @@
       } else {
         reply = "Look, I like your style, but keep it to the mission! Ask me about our Sunday groceries, volunteering, Andrew, or our programs and I've got you covered. 😉";
       }
+    }
 
-      feed.innerHTML += `<div style="background: #eef2eb; color: #2c3e2d; padding: 10px 12px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">${reply}</div>`;
-      feed.scrollTop = feed.scrollHeight;
-    }, 500);
+    feed.innerHTML += `<div style="background: #eef2eb; color: #2c3e2d; padding: 10px 12px; border-radius: 8px; max-width: 85%; align-self: flex-start; line-height: 1.4;">${reply}</div>`;
+    feed.scrollTop = feed.scrollHeight;
   }
 </script>
