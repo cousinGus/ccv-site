@@ -2,7 +2,9 @@
 title: Volunteer
 permalink: /volunteer/
 ---
-
+  <blockquote>"I love that when we leave here, we see each other, we see the people who show up, and we feel like a part of our community more than just a word... you walk around knowing that you are known and that you know others." - Andrew</blockquote>  
+    
+  
 # [Volunteer Registration Form](https://docs.google.com/forms/d/e/1FAIpQLSdCJpE1pBFpL9aB8iATY1q4wZe45kn2Y7bR51jdQGRSVyh6pg/viewform?pli=1)
 
 
@@ -11,7 +13,7 @@ Cultivating Community uses [timecounts](https://timecounts.app/cultivating-commu
 ### Opportunities
 
 **Sunday Crew**  
-We're always happy to have volunteers who can help with food distribution near Columbia Heights or help pick up donated food around DC and Maryland. 
+We're always happy to have volunteers who can help with food distribution in Columbia Heights (at the [Dandelion Collective DC](https://www.dandelioncollectivedc.com/)) or help pick up donated food around DC and Maryland. 
 
 
 **Farmhand**  
